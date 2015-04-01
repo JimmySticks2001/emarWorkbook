@@ -7,7 +7,7 @@
 * Make a nicer form/sheet for control.
   * Status report which phase is currently active
 
-
+* Merge this into DCO.
 
 ##### Finished stuff
 
