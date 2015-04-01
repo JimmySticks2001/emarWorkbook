@@ -36,11 +36,10 @@ Sub Phase1()
     ' this script. This has a huge impact on macro performance.
     Application.ScreenUpdating = False
     
-    'Unprotect before starting work.
-    ThisWorkbook.Unprotect
     'Unprotect all of the sheets
     unprotectAll
 
+    Sheets("Instr Phase 1").Visible = True
     Sheets("Instr Phase 2").Visible = False
     Sheets("Instr Phase 3").Visible = False
     Sheets("Diet-Rest").Visible = False
@@ -57,8 +56,8 @@ Sub Phase1()
     Sheets("Override-Basic Duplicate").Visible = False
     Sheets("NTST ONLY").Visible = False
     Sheets("Insulin").Visible = False
-    'Sheets("NTST MACROS").Visible = False
     
+    'Hide the columns in ORDER TYPE
     Sheets("ORDER TYPE").Select
     
     If (ActiveSheet.Columns("P:R").Hidden = False) Then
@@ -66,19 +65,28 @@ Sub Phase1()
         Selection.EntireColumn.Hidden = True
     End If
     
-    'Hide phase 2 columns in order code
+    'Change ORDER TYPE tab color to blue
+    Sheets("ORDER TYPE").Tab.Color = RGB(0, 176, 240)
+    
+    'Hide the columns in ORDER CODE
     Sheets("ORDER CODE").Select
-    Columns("F:K").Select
-    Selection.EntireColumn.Hidden = True
+    
+    If (ActiveSheet.Columns("F:K").Hidden = False) Then
+        Columns("F:K").Select
+        Selection.EntireColumn.Hidden = True
+    End If
+    
+    'Change ORDER CODE tab color to blue
+    Sheets("ORDER CODE").Tab.Color = RGB(0, 176, 240)
 
     'Place "Current above the control button to signify the currect status of the workbook
     updateCurrent ("B1")
+    Sheets("NTST MACROS").Visible = False
+    
+    Sheets("Instr Phase 1").Select
     
     'Call the protectAll function to protect all of the sheets in this workbook
     protectAll
-    
-    'Protect the workbook to prevent tab reordering
-    ThisWorkbook.Protect
     
 End Sub
 
@@ -91,8 +99,6 @@ Sub AfterPhase1()
     ' this script. This has a huge impact on macro performance
     Application.ScreenUpdating = False
     
-    'Unprotect before starting work.
-    ThisWorkbook.Unprotect
     'Unprotect all of the sheets
     unprotectAll
     
@@ -105,6 +111,17 @@ Sub AfterPhase1()
     End If
     
     'Change ORDER TYPE tab color to orange
+    Sheets("ORDER TYPE").Tab.Color = RGB(255, 192, 0)
+    
+    'Unhide the columns in ORDER CODE
+    Sheets("ORDER CODE").Select
+    
+    If (ActiveSheet.Columns("F:K").Hidden = True) Then
+        Columns("F:K").Select
+        Selection.EntireColumn.Hidden = False
+    End If
+    
+    'Change ORDER CODE tab color to orange
     Sheets("ORDER CODE").Tab.Color = RGB(255, 192, 0)
     
     'Set the sheets visiblity
@@ -125,6 +142,7 @@ Sub AfterPhase1()
     Sheets("Pre-Authorizations").Visible = False
     Sheets("Override-Basic Duplicate").Visible = False
     Sheets("NTST ONLY").Visible = False
+    Sheets("NTST MACROS").Visible = True
     
     'Place "Current above the control button to signify the currect status of the workbook
     updateCurrent ("C1")
@@ -139,8 +157,6 @@ Sub Phase2()
     ' this script. This has a huge impact on macro performance
     Application.ScreenUpdating = False
     
-    'Unprotect before starting work.
-    ThisWorkbook.Unprotect
     'Unprotect all of the sheets
     unprotectAll
     
@@ -153,6 +169,17 @@ Sub Phase2()
     End If
     
     'Change ORDER TYPE tab color to orange
+    Sheets("ORDER TYPE").Tab.Color = RGB(255, 192, 0)
+    
+    'Unhide the columns in ORDER CODE
+    Sheets("ORDER CODE").Select
+    
+    If (ActiveSheet.Columns("F:K").Hidden = True) Then
+        Columns("F:K").Select
+        Selection.EntireColumn.Hidden = False
+    End If
+    
+    'Change ORDER CODE tab color to orange
     Sheets("ORDER CODE").Tab.Color = RGB(255, 192, 0)
     
     'Set the sheets visiblity
@@ -176,6 +203,9 @@ Sub Phase2()
     
     'Place "Current above the control button to signify the currect status of the workbook
     updateCurrent ("D1")
+    Sheets("NTST MACROS").Visible = False
+    
+    Sheets("Instr Phase 2").Select
     
     'Call the protectVisible function to protect all of the sheets which were made visible above
     protectAll
@@ -191,10 +221,30 @@ Sub After2()
     ' this script. This has a huge impact on macro performance
     Application.ScreenUpdating = False
     
-    'Unprotect before starting work.
-    ThisWorkbook.Unprotect
     'Unprotect all of the sheets
     unprotectAll
+    
+    'Unhide the columns in ORDER TYPE
+    Sheets("ORDER TYPE").Select
+    
+    If (ActiveSheet.Columns("P:R").Hidden = True) Then
+        Columns("P:R").Select
+        Selection.EntireColumn.Hidden = False
+    End If
+    
+    'Change ORDER TYPE tab color to orange
+    Sheets("ORDER TYPE").Tab.Color = RGB(255, 192, 0)
+    
+    'Unhide the columns in ORDER CODE
+    Sheets("ORDER CODE").Select
+    
+    If (ActiveSheet.Columns("F:K").Hidden = True) Then
+        Columns("F:K").Select
+        Selection.EntireColumn.Hidden = False
+    End If
+    
+    'Change ORDER CODE tab color to orange
+    Sheets("ORDER CODE").Tab.Color = RGB(255, 192, 0)
     
     'Set the sheets visiblity
     Sheets("Instr Phase 1").Visible = False
@@ -214,6 +264,7 @@ Sub After2()
     Sheets("Pre-Authorizations").Visible = True
     Sheets("Override-Basic Duplicate").Visible = True
     Sheets("NTST ONLY").Visible = False
+    Sheets("NTST MACROS").Visible = True
 
     'Place "Current above the control button to signify the currect status of the workbook
     updateCurrent ("E1")
@@ -229,10 +280,30 @@ Sub Phase3()
     ' this script. This has a huge impact on macro performance
     Application.ScreenUpdating = False
     
-    'Unprotect before starting work.
-    ThisWorkbook.Unprotect
     'Unprotect all of the sheets
     unprotectAll
+    
+    'Unhide the columns in ORDER TYPE
+    Sheets("ORDER TYPE").Select
+    
+    If (ActiveSheet.Columns("P:R").Hidden = True) Then
+        Columns("P:R").Select
+        Selection.EntireColumn.Hidden = False
+    End If
+    
+    'Change ORDER TYPE tab color to orange
+    Sheets("ORDER TYPE").Tab.Color = RGB(255, 192, 0)
+    
+    'Unhide the columns in ORDER CODE
+    Sheets("ORDER CODE").Select
+    
+    If (ActiveSheet.Columns("F:K").Hidden = True) Then
+        Columns("F:K").Select
+        Selection.EntireColumn.Hidden = False
+    End If
+    
+    'Change ORDER CODE tab color to orange
+    Sheets("ORDER CODE").Tab.Color = RGB(255, 192, 0)
     
     'Set the sheets visiblity
     Sheets("Instr Phase 1").Visible = False
@@ -255,11 +326,12 @@ Sub Phase3()
 
     'Place "Current above the control button to signify the currect status of the workbook
     updateCurrent ("F1")
+    Sheets("NTST MACROS").Visible = False
+    
+    Sheets("Instr Phase 3").Select
 
     'Call the protectVisible function to protect all of the sheets which were made visible above
     protectAll
-    
-    'Hide NTST MACROS
 
 End Sub
 
@@ -272,8 +344,6 @@ Sub After3()
     ' this script. This has a huge impact on macro performance
     Application.ScreenUpdating = False
     
-    'Unprotect before starting work.
-    ThisWorkbook.Unprotect
     'Unprotect all of the sheets
     unprotectAll
 
@@ -281,10 +351,12 @@ Sub After3()
     For Each loopedSheet In ThisWorkbook.Worksheets
         'Show this sheet
         loopedSheet.Visible = True
+        'Activate this sheet
+        loopedSheet.Select
         'Loop through each column in the sheet, unhiding any that are hidden
         For Each sheetRange In ActiveSheet.UsedRange.Columns
             If sheetRange.Hidden = True Then
-                loopedSheet.Cells.EntireColumn.Hidden = False
+                ActiveSheet.Cells.EntireColumn.Hidden = False
             End If
         Next sheetRange 'next column
     Next loopedSheet 'next worksheet
@@ -303,8 +375,6 @@ Sub RESETOE()
     ' this script. This has a huge impact on macro performance
     Application.ScreenUpdating = False
     
-    'Unprotect before starting work.
-    ThisWorkbook.Unprotect
     'Unprotect all of the sheets
     unprotectAll
 
@@ -312,19 +382,23 @@ Sub RESETOE()
     For Each loopedSheet In ThisWorkbook.Worksheets
         'Show this sheet
         loopedSheet.Visible = True
+        'Activate this sheet
+        loopedSheet.Select
         'Loop through each column in the sheet, unhiding any that are hidden
         For Each sheetRange In ActiveSheet.UsedRange.Columns
             If sheetRange.Hidden = True Then
-                loopedSheet.Cells.EntireColumn.Hidden = False
+                ActiveSheet.Cells.EntireColumn.Hidden = False
             End If
         Next sheetRange 'next column
     Next loopedSheet 'next worksheet
     
     'Return ORDER CODE to it's default color
     Sheets("ORDER CODE").Tab.Color = RGB(0, 176, 240)
+    
+    'Change ORDER TYPE to it's default color
+    Sheets("ORDER TYPE").Tab.Color = RGB(0, 176, 240)
 
     'Place "Current" above the control button to highlight the currect phase of the workbook
     updateCurrent ("A1")
     
 End Sub
-
