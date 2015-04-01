@@ -1,11 +1,20 @@
 Attribute VB_Name = "Module1"
 Sub Phase1()
+Attribute Phase1.VB_Description = "This sets the workbook for Phase 1 homework entry by customer."
+Attribute Phase1.VB_ProcData.VB_Invoke_Func = "B\n14"
 '
 ' Phase1 Macro
 ' This sets the workbook for Phase 1 homework entry by customer.
 '
 ' Keyboard Shortcut: Ctrl+Shift+B
-'
+
+    'Turn screen updating off. This prevents Excel from displaying all of the actions taken by
+    ' this script. This has a huge impact on macro performance
+    Application.ScreenUpdating = False
+    
+    'Unprotect before starting work.
+    ThisWorkbook.Unprotect
+
     Sheets("Instr Phase 2").Visible = False
     Sheets("Instr Phase 3").Visible = False
     Sheets("Diet-Rest").Visible = False
@@ -21,45 +30,35 @@ Sub Phase1()
     Sheets("Pre-Authorizations").Visible = False
     Sheets("Override-Basic Duplicate").Visible = False
     Sheets("NTST ONLY").Visible = False
-
-    'Hide Columns ?? In Order Code sheet (this will be changed)
+    Sheets("Insulin").Visible = False
+    'Sheets("NTST MACROS").Visible = False
+    
     Sheets("ORDER TYPE").Select
-    ActiveWindow.SmallScroll ToRight:=11
-    ActiveSheet.Unprotect
-
-    Columns("P:R").Select
-    Selection.EntireColumn.Hidden = True
-    ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-
-    Sheets("FREQUENCY").Select
-    ActiveWindow.SmallScroll ToRight:=8
-    ActiveWindow.ScrollColumn = 10
-    ActiveWindow.ScrollColumn = 9
-    ActiveWindow.ScrollColumn = 8
-    ActiveWindow.ScrollColumn = 6
-    ActiveWindow.ScrollColumn = 5
-    ActiveWindow.ScrollColumn = 4
-    ActiveWindow.ScrollColumn = 3
-
+    
+    If (ActiveSheet.Columns("P:R").Hidden = False) Then
+        Columns("P:R").Select
+        Selection.EntireColumn.Hidden = True
+    End If
+    
+    'Hide phase 2 columns in order code
     Sheets("ORDER CODE").Select
-    ActiveSheet.Unprotect
-
     Columns("F:K").Select
     Selection.EntireColumn.Hidden = True
-    ActiveWindow.ScrollColumn = 6
-    ActiveWindow.ScrollColumn = 5
-    ActiveWindow.ScrollColumn = 4
-    ActiveWindow.ScrollColumn = 3
 
-    Range("B9").Select
-    ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-
-    Sheets("Instr Phase 1").Select
+    'Place "Current above the control button to signify the currect status of the workbook
+    Sheets("NTST MACROS").Select
+    Range("A1:G1").Clear
+    Range("B1").Value = "Current"
+    Range("B1").Interior.Color = RGB(67, 172, 106)
+    Range("B1").Font.Color = RGB(255, 255, 255)
+    Range("B1").Font.Bold = True
+    Range("B1").HorizontalAlignment = xlCenter
     
-    ThisWorkbook.Protect (True)
-
+    Sheets("Instr Phase 1").Protect
+    
+    'ThisWorkbook.Protect
+    
 End Sub
-
 
 Sub AfterPhase1()
 Attribute AfterPhase1.VB_Description = "Run this to restore Workbook after Phase 1"
@@ -67,8 +66,6 @@ Attribute AfterPhase1.VB_ProcData.VB_Invoke_Func = " \n14"
 '
 ' AfterPhase1 Macro
 ' Run this to restore Workbook after Phase 1
-'
-
 '
     Sheets("Instr Phase 2").Visible = True
     Sheets("Diet-Rest").Visible = True
@@ -124,15 +121,13 @@ Attribute AfterPhase1.VB_ProcData.VB_Invoke_Func = " \n14"
     End With
     Sheets("Resume Reason").Select
     ActiveWindow.ScrollWorkbookTabs Sheets:=-3
+    
 End Sub
-
 
 Sub Phase2()
 Attribute Phase2.VB_ProcData.VB_Invoke_Func = " \n14"
 '
 ' Phase2 Macro
-'
-
 '
     Sheets("eMAR Reg").Select
     ActiveWindow.ScrollWorkbookTabs Sheets:=-1
@@ -177,8 +172,8 @@ Attribute Phase2.VB_ProcData.VB_Invoke_Func = " \n14"
         , AllowFormattingCells:=True, AllowFormattingRows:=True, _
         AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
     Sheets("Instr Phase 2").Select
+    
 End Sub
-
 
 Sub After2()
 Attribute After2.VB_Description = "Run this to review what the customer did with phase 2 homework."
@@ -186,8 +181,6 @@ Attribute After2.VB_ProcData.VB_Invoke_Func = " \n14"
 '
 ' After2 Macro
 ' Run this to review what the customer did with phase 2 homework.
-'
-
 '
     Sheets("Instr Phase 3").Visible = True
     Sheets("ORDER GROUPS").Visible = True
@@ -249,8 +242,8 @@ Attribute After2.VB_ProcData.VB_Invoke_Func = " \n14"
     ActiveWindow.ScrollWorkbookTabs Sheets:=-1
     Sheets("Instr Phase 2").Select
     ActiveWindow.SelectedSheets.Visible = False
+    
 End Sub
-
 
 Sub Phase3()
 Attribute Phase3.VB_Description = "Set for customer to do phase 3 homework."
@@ -258,8 +251,6 @@ Attribute Phase3.VB_ProcData.VB_Invoke_Func = " \n14"
 '
 ' Phase3 Macro
 ' Set for customer to do phase 3 homework.
-'
-
 '
     Sheets("OE SOURCE").Select
     ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True _
@@ -337,8 +328,8 @@ Attribute Phase3.VB_ProcData.VB_Invoke_Func = " \n14"
     ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True _
         , AllowFormattingCells:=True, AllowFormattingRows:=True, _
         AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
+        
 End Sub
-
 
 Sub After3()
 Attribute After3.VB_Description = "For Reviewing Phase 3 homework with the customer."
@@ -346,7 +337,6 @@ Attribute After3.VB_ProcData.VB_Invoke_Func = " \n14"
 '
 ' After3 Macro
 ' For Reviewing Phase 3 homework with the customer.
-'
 '
     ActiveSheet.Unprotect
     Sheets("Pre-Authorizations").Select
@@ -385,7 +375,14 @@ Attribute After3.VB_ProcData.VB_Invoke_Func = " \n14"
     Sheets("DC Reason").Select
     ActiveSheet.Unprotect
     Sheets("ORDER CODE").Select
-    ActiveSheet.Unprotect
+    ActiveSheet.Unprotect 'Place "Current above the control button to signify the currect status of the workbook
+    Sheets("NTST MACROS").Select
+    Range("A1:G1").Clear
+    Range("A1").Value = "Current"
+    Range("A1").Interior.Color = RGB(67, 172, 106)
+    Range("A1").Font.Color = RGB(255, 255, 255)
+    Range("A1").Font.Bold = True
+    Range("A1").HorizontalAlignment = xlCenter
     Sheets("REASON").Select
     ActiveSheet.Unprotect
     Sheets("FREQUENCY").Select
@@ -395,39 +392,48 @@ Attribute After3.VB_ProcData.VB_Invoke_Func = " \n14"
     Sheets("OE SOURCE").Select
     ActiveSheet.Unprotect
     ActiveWindow.ScrollWorkbookTabs Sheets:=-1
+    
 End Sub
-
 
 Sub RESETOE()
 Attribute RESETOE.VB_Description = "RESETS workbook so macros will fire with no error.  After Reset, start again at Phase 1 and go in order until you get to the state you want."
 Attribute RESETOE.VB_ProcData.VB_Invoke_Func = " \n14"
+'
 ' RESETOE Macro
-' RESETS workbook so macros will fire with no error.  After Reset, start again at Phase 1 and go in
-' order until you get to the state you want.
-
+' RESETS workbook so macros will fire with no error.  After Reset, start again at Phase 1 and go in order until you get to the state you want.
+'
     'Turn screen updating off. This prevents Excel from displaying all of the actions taken by
-    ' this script. This has a huge impact on performance. Crunch time is more than halfed when
-    ' ScreenUpdating is turned off.
+    ' this script. This has a huge impact on macro performance
     Application.ScreenUpdating = False
     
     'Disable protection on the workbook so we can alter the visibility of the sheets and do what
     ' we need to do.
-    ThisWorkbook.Protect (True)
+    ThisWorkbook.Unprotect
 
-    'Loop through all of the sheets in this workbook and make them all visible
+    'Loop through all of the sheets in this workbook. Unprotect each sheet. Make every sheet, column,
+    ' and row visible
     For Each loopedSheet In ThisWorkbook.Worksheets
-    
-        ' Select this sheet as the active sheet
-        ' loopedSheet.Select
-        
+        'Show this sheet
         loopedSheet.Visible = True
-        
-        
-        ' Set this sheets Visible field
-        ' ActiveSheet.Visible = False
-        
-    Next loopedSheet 'Get next worksheet
+        'Activate this sheet so we can loop through it's contents
+        loopedSheet.Select
+        'Unprotect this sheet
+        ActiveSheet.Unprotect
+        'Loop through each column in the sheet, unhiding any that are hidden
+        For Each sheetRange In ActiveSheet.UsedRange.Columns
+            If sheetRange.Hidden = True Then
+                ActiveSheet.Cells.EntireColumn.Hidden = False
+            End If
+        Next sheetRange 'next column
+    Next loopedSheet 'next worksheet
 
+    'Place "Current" above the control button to highlight the currect phase of the workbook
     Sheets("NTST MACROS").Select
+    Range("A1:G1").Clear
+    Range("A1").Value = "Current"
+    Range("A1").Interior.Color = RGB(67, 172, 106)
+    Range("A1").Font.Color = RGB(255, 255, 255)
+    Range("A1").Font.Bold = True
+    Range("A1").HorizontalAlignment = xlCenter
     
 End Sub
