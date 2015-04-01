@@ -11,6 +11,20 @@ Function updateCurrent(Cell As String)
     Range(Cell).HorizontalAlignment = xlCenter
 End Function
 
+'This function calls the .Protect method on all sheets.
+Function protectAll()
+    For Each loopedSheet In ThisWorkbook.Worksheets
+        loopedSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
+    Next loopedSheet 'next worksheet
+End Function
+
+'This function calls the .Unprotect method on all sheets.
+Function unprotectAll()
+    For Each loopedSheet In ThisWorkbook.Worksheets
+        loopedSheet.Unprotect
+    Next loopedSheet 'next worksheet
+End Function
+
 Sub Phase1()
 '
 ' Phase1 Macro
@@ -19,11 +33,13 @@ Sub Phase1()
 ' Keyboard Shortcut: Ctrl+Shift+B
 
     'Turn screen updating off. This prevents Excel from displaying all of the actions taken by
-    ' this script. This has a huge impact on macro performance
+    ' this script. This has a huge impact on macro performance.
     Application.ScreenUpdating = False
     
     'Unprotect before starting work.
     ThisWorkbook.Unprotect
+    'Unprotect all of the sheets
+    unprotectAll
 
     Sheets("Instr Phase 2").Visible = False
     Sheets("Instr Phase 3").Visible = False
@@ -58,8 +74,10 @@ Sub Phase1()
     'Place "Current above the control button to signify the currect status of the workbook
     updateCurrent ("B1")
     
-    Sheets("Instr Phase 1").Protect
+    'Call the protectAll function to protect all of the sheets in this workbook
+    protectAll
     
+    'Protect the workbook to prevent tab reordering
     ThisWorkbook.Protect
     
 End Sub
@@ -75,6 +93,8 @@ Sub AfterPhase1()
     
     'Unprotect before starting work.
     ThisWorkbook.Unprotect
+    'Unprotect all of the sheets
+    unprotectAll
     
     'Unhide the columns in ORDER TYPE
     Sheets("ORDER TYPE").Select
@@ -109,57 +129,6 @@ Sub AfterPhase1()
     'Place "Current above the control button to signify the currect status of the workbook
     updateCurrent ("C1")
     
-    
-    
-    'Sheets("Instr Phase 3").Visible = True
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-2
-    'Sheets("Instr Phase 1").Select
-    'ActiveWindow.SelectedSheets.Visible = False
-    'Sheets("Instr Phase 3").Select
-    'ActiveWindow.SelectedSheets.Visible = False
-    'Sheets("OE SOURCE").Select
-    'ActiveSheet.Unprotect
-    'Sheets("ORDER TYPE").Select
-    'ActiveSheet.Unprotect
-    'Sheets("FREQUENCY").Select
-    'ActiveSheet.Unprotect
-    'Sheets("REASON").Select
-    'ActiveSheet.Unprotect
-    'Sheets("ORDER CODE").Select
-    'ActiveSheet.Unprotect
-    'Sheets("DC Reason").Select
-    'ActiveSheet.Unprotect
-    'Sheets("Resume Reason").Select
-    'ActiveSheet.Unprotect
-    'Sheets("Diet-Rest").Select
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=1
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=1
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=1
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=1
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=1
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-9
-    'Sheets("ORDER TYPE").Select
-    'ActiveWindow.LargeScroll ToRight:=-1
-    'ActiveWindow.SmallScroll ToRight:=-2
-    'Sheets("FREQUENCY").Select
-    'ActiveWindow.SmallScroll ToRight:=5
-    'ActiveWindow.ScrollColumn = 7
-    'ActiveWindow.ScrollColumn = 6
-    'ActiveWindow.ScrollColumn = 5
-    'ActiveWindow.ScrollColumn = 4
-    'ActiveWindow.ScrollColumn = 3
-    'Sheets("ORDER CODE").Select
-    'Columns("E:M").Select
-    'Selection.EntireColumn.Hidden = False
-    'ActiveWindow.SmallScroll ToRight:=1
-    'Sheets("ORDER CODE").Select
-    'With ActiveWorkbook.Sheets("ORDER CODE").Tab
-    '    .Color = 49407
-    '    .TintAndShade = 0
-    'End With
-    'Sheets("Resume Reason").Select
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-3
-    
 End Sub
 
 Sub Phase2()
@@ -172,6 +141,8 @@ Sub Phase2()
     
     'Unprotect before starting work.
     ThisWorkbook.Unprotect
+    'Unprotect all of the sheets
+    unprotectAll
     
     'Unhide the columns in ORDER TYPE
     Sheets("ORDER TYPE").Select
@@ -206,38 +177,9 @@ Sub Phase2()
     'Place "Current above the control button to signify the currect status of the workbook
     updateCurrent ("D1")
     
-    Sheets("Instr Phase 2").Protect
+    'Call the protectVisible function to protect all of the sheets which were made visible above
+    protectAll
 
-
-    'Sheets("eMAR Reg").Select
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    
-    'Sheets("Resume Reason").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("Hold Reason").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowInsertingRows:=True, AllowDeletingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("DC Reason").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("ORDER CODE").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("REASON").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("FREQUENCY").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("ORDER TYPE").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("OE SOURCE").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("Instr Phase 2").Select
-    
 End Sub
 
 Sub After2()
@@ -251,6 +193,8 @@ Sub After2()
     
     'Unprotect before starting work.
     ThisWorkbook.Unprotect
+    'Unprotect all of the sheets
+    unprotectAll
     
     'Set the sheets visiblity
     Sheets("Instr Phase 1").Visible = False
@@ -273,70 +217,6 @@ Sub After2()
 
     'Place "Current above the control button to signify the currect status of the workbook
     updateCurrent ("E1")
-
-
-
-
-    'Sheets("Instr Phase 3").Visible = True
-    'Sheets("ORDER GROUPS").Visible = True
-    'Sheets("OE Roles").Visible = True
-    'Sheets("OE Security").Visible = True
-    'Sheets("REASON FOR CHANGE").Visible = True
-    'Sheets("NOTE CATEGORY").Visible = True
-    'Sheets("Pre-Authorizations").Visible = True
-    'Sheets("Override-Basic Duplicate").Visible = True
-    'ActiveSheet.Unprotect
-    'Sheets("Pre-Authorizations").Select
-    'ActiveSheet.Unprotect
-    'Sheets("NOTE CATEGORY").Select
-    'ActiveSheet.Unprotect
-    'Sheets("REASON FOR CHANGE").Select
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'Sheets("OE Roles").Select
-    'ActiveSheet.Unprotect
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'Sheets("ORDER GROUPS").Select
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'Sheets("eMAR Reg").Select
-    'ActiveSheet.Unprotect
-    'Sheets("eMAR Events").Select
-    'ActiveSheet.Unprotect
-    'Sheets("eMAR Types Proc").Select
-    'ActiveSheet.Unprotect
-    'Sheets("Diet-Supp").Select
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'Sheets("Diet-Rest").Select
-    'ActiveSheet.Unprotect
-    'Sheets("Resume Reason").Select
-    'ActiveSheet.Unprotect
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'Sheets("Hold Reason").Select
-    'ActiveSheet.Unprotect
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'Sheets("ORDER CODE").Select
-    'ActiveSheet.Unprotect
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'Sheets("REASON").Select
-    'ActiveSheet.Unprotect
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'Sheets("FREQUENCY").Select
-    'ActiveSheet.Unprotect
-    'Sheets("ORDER TYPE").Select
-    'ActiveSheet.Unprotect
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'Sheets("OE SOURCE").Select
-    'ActiveSheet.Unprotect
-    'ActiveWindow.ScrollWorkbookTabs Sheets:=-1
-    'Sheets("Instr Phase 2").Select
-    'ActiveWindow.SelectedSheets.Visible = False
     
 End Sub
 
@@ -351,6 +231,8 @@ Sub Phase3()
     
     'Unprotect before starting work.
     ThisWorkbook.Unprotect
+    'Unprotect all of the sheets
+    unprotectAll
     
     'Set the sheets visiblity
     Sheets("Instr Phase 1").Visible = False
@@ -374,69 +256,10 @@ Sub Phase3()
     'Place "Current above the control button to signify the currect status of the workbook
     updateCurrent ("F1")
 
-    'Protect regions of sheets which are visible to the clients
+    'Call the protectVisible function to protect all of the sheets which were made visible above
+    protectAll
     
     'Hide NTST MACROS
-
-
-
-
-    'Sheets("OE SOURCE").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("ORDER TYPE").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("FREQUENCY").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("REASON").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("ORDER CODE").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("Hold Reason").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowInsertingRows:=True, AllowDeletingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("Resume Reason").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("Diet-Rest").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("Diet-Supp").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("eMAR Types Proc").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowSorting:=True
-    
-    'Sheets("eMAR Events").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("eMAR Reg").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowFiltering:=True
-    
-    'Sheets("ORDER GROUPS").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("OE Roles").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("OE Security").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("REASON FOR CHANGE").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("NOTE CATEGORY").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("Pre-Authorizations").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
-    
-    'Sheets("Override-Basic Duplicate").Select
-    'ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, AllowFormattingCells:=True, AllowFormattingRows:=True, AllowInsertingRows:=True, AllowSorting:=True, AllowFiltering:=True
 
 End Sub
 
@@ -449,23 +272,19 @@ Sub After3()
     ' this script. This has a huge impact on macro performance
     Application.ScreenUpdating = False
     
-    'Disable protection on the workbook so we can alter the visibility of the sheets and do what
-    ' we need to do.
+    'Unprotect before starting work.
     ThisWorkbook.Unprotect
+    'Unprotect all of the sheets
+    unprotectAll
 
-    'Loop through all of the sheets in this workbook. Unprotect each sheet. Make every sheet, column,
-    ' and row visible
+    'Loop through all of the sheets in this workbook. Make every sheet, column, and row visible
     For Each loopedSheet In ThisWorkbook.Worksheets
         'Show this sheet
         loopedSheet.Visible = True
-        'Activate this sheet so we can loop through it's contents
-        loopedSheet.Select
-        'Unprotect this sheet
-        ActiveSheet.Unprotect
         'Loop through each column in the sheet, unhiding any that are hidden
         For Each sheetRange In ActiveSheet.UsedRange.Columns
             If sheetRange.Hidden = True Then
-                ActiveSheet.Cells.EntireColumn.Hidden = False
+                loopedSheet.Cells.EntireColumn.Hidden = False
             End If
         Next sheetRange 'next column
     Next loopedSheet 'next worksheet
@@ -484,23 +303,19 @@ Sub RESETOE()
     ' this script. This has a huge impact on macro performance
     Application.ScreenUpdating = False
     
-    'Disable protection on the workbook so we can alter the visibility of the sheets and do what
-    ' we need to do.
+    'Unprotect before starting work.
     ThisWorkbook.Unprotect
+    'Unprotect all of the sheets
+    unprotectAll
 
-    'Loop through all of the sheets in this workbook. Unprotect each sheet. Make every sheet, column,
-    ' and row visible
+    'Loop through all of the sheets in this workbook. Make every sheet, column, and row visible.
     For Each loopedSheet In ThisWorkbook.Worksheets
         'Show this sheet
         loopedSheet.Visible = True
-        'Activate this sheet so we can loop through it's contents
-        loopedSheet.Select
-        'Unprotect this sheet
-        ActiveSheet.Unprotect
         'Loop through each column in the sheet, unhiding any that are hidden
         For Each sheetRange In ActiveSheet.UsedRange.Columns
             If sheetRange.Hidden = True Then
-                ActiveSheet.Cells.EntireColumn.Hidden = False
+                loopedSheet.Cells.EntireColumn.Hidden = False
             End If
         Next sheetRange 'next column
     Next loopedSheet 'next worksheet
